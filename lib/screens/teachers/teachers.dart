@@ -1,5 +1,4 @@
 import 'package:attendance_app/provider/student.dart';
-import 'package:attendance_app/screens/student/attendance_history.dart';
 import 'package:attendance_app/screens/teachers/student_attendance.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

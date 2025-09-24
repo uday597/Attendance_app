@@ -40,24 +40,11 @@ class Student extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 40),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 12,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Image.asset('assets/images/stuu.png', height: 180),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Image.asset('assets/images/welimg.png'),
             ),
-
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
               child: _buildGradientButton(

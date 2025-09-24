@@ -1,5 +1,4 @@
 import 'package:attendance_app/database/teachers.dart';
-import 'package:attendance_app/screens/teachers/authentication/login.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatefulWidget {
@@ -214,28 +213,14 @@ class _SignupState extends State<Signup> {
                       ),
                       const SizedBox(height: 15),
 
-                      // Already have account
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text("Already have an account? "),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                '/teacher/login',
-                                (Route<dynamic> route) => false,
-                              );
-                            },
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                color: Color(0xFF2575FC),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/teacher/login');
+                        },
+                        child: const Text(
+                          "Already have an account? Login",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),

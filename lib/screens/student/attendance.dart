@@ -52,24 +52,34 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _buildAttendanceButton(
-              label: "Present",
-              icon: Icons.check,
-              color: Colors.green,
-              onPressed: () async {
-                await provider.markAttendance(widget.studentid, 'Present');
-              },
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset('assets/images/girlimg.png'),
             ),
-            _buildAttendanceButton(
-              label: "Absent",
-              icon: Icons.close,
-              color: Colors.red,
-              onPressed: () async {
-                await provider.markAttendance(widget.studentid, 'Absent');
-              },
+            SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildAttendanceButton(
+                  label: "Present",
+                  icon: Icons.check,
+                  color: Colors.green,
+                  onPressed: () async {
+                    await provider.markAttendance(widget.studentid, 'Present');
+                  },
+                ),
+                _buildAttendanceButton(
+                  label: "Absent",
+                  icon: Icons.close,
+                  color: Colors.red,
+                  onPressed: () async {
+                    await provider.markAttendance(widget.studentid, 'Absent');
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -87,11 +97,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       onPressed: onPressed,
       icon: Icon(icon, color: Colors.white),
       label: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
         child: Text(
           label,
           style: const TextStyle(
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
@@ -99,7 +109,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
         elevation: 5,
       ),
     );

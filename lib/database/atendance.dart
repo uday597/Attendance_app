@@ -36,7 +36,7 @@ class AttendanceDb {
         whereArgs: [studentid, datestring],
       );
       if (update == 0) {
-        return await db!.insert(tablename, {
+        return await db.insert(tablename, {
           studentIdcolumn: studentid,
           statuscolumn: status,
           datecolumn: datestring,

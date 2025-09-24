@@ -178,11 +178,7 @@ class _LoginState extends State<Login> {
 
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            '/teacher/signup',
-                            (Route<dynamic> route) => false,
-                          );
+                          Navigator.pushNamed(context, '/teacher/signup');
                         },
                         child: const Text(
                           "Don't have an account? Sign Up",

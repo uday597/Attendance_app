@@ -50,6 +50,9 @@ class _StudentAttendanceState extends State<StudentAttendance> {
             ),
             ElevatedButton.icon(
               onPressed: () async {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Attendance updated")),
+                );
                 await provider.updateAttendance(widget.studentid, 'Present');
               },
               style: ElevatedButton.styleFrom(
@@ -74,6 +77,9 @@ class _StudentAttendanceState extends State<StudentAttendance> {
             ),
             ElevatedButton.icon(
               onPressed: () async {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Attendance updated")),
+                );
                 await provider.updateAttendance(widget.studentid, 'Absent');
               },
               style: ElevatedButton.styleFrom(
