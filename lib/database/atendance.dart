@@ -24,6 +24,31 @@ class AttendanceDb {
     }
   }
 
+  Future<int> updateAttendance(String studentid, String status) async {
+    final db = await DBhelper.instanse.database;
+    final today = DateTime.now();
+    final datestring = "${today.year},${today.month},${today.day}";
+    try {
+      int update = await db!.update(
+        tablename,
+        {statuscolumn: status},
+        where: '$studentIdcolumn=? AND $datecolumn=?',
+        whereArgs: [studentid, datestring],
+      );
+      if (update == 0) {
+        return await db!.insert(tablename, {
+          studentIdcolumn: studentid,
+          statuscolumn: status,
+          datecolumn: datestring,
+        });
+      }
+      return update;
+    } catch (e) {
+      print('Attendance insert failed: $e');
+      return 0;
+    }
+  }
+
   Future<List<Map<String, dynamic>>> getdata() async {
     Database? data = await DBhelper.instanse.database;
     return await data!.query(tablename);

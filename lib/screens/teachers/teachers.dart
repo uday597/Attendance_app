@@ -1,4 +1,6 @@
 import 'package:attendance_app/provider/student.dart';
+import 'package:attendance_app/screens/student/attendance_history.dart';
+import 'package:attendance_app/screens/teachers/student_attendance.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +34,7 @@ class _TeachersState extends State<Teachers> {
       _nameController.clear();
       _phoneController.clear();
       _studentIdController.clear();
-      Navigator.pop(context); // close dialog after adding
+      Navigator.pop(context);
     } catch (e) {
       ScaffoldMessenger.of(
         context,
@@ -43,7 +45,6 @@ class _TeachersState extends State<Teachers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Gradient AppBar
       appBar: AppBar(
         title: const Text(
           'Students Data',
@@ -63,7 +64,6 @@ class _TeachersState extends State<Teachers> {
         elevation: 6,
       ),
 
-      // Body
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -88,41 +88,52 @@ class _TeachersState extends State<Teachers> {
               itemCount: provider.student.length,
               itemBuilder: (context, index) {
                 final data = provider.student[index];
-                return Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  elevation: 6,
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ),
-                    leading: CircleAvatar(
-                      radius: 25,
-                      backgroundColor: Colors.purple.shade100,
-                      child: const Icon(Icons.person, color: Colors.purple),
-                    ),
-                    title: Text(
-                      data['name'],
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            StudentAttendance(studentid: data['studentid']),
                       ),
+                    );
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("ID: ${data['studentid']}"),
-                        Text("📞 ${data['phone']}"),
-                      ],
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete, color: Colors.redAccent),
-                      onPressed: () async {
-                        await provider.deletestudent(data['id']);
-                      },
+                    elevation: 6,
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      leading: CircleAvatar(
+                        radius: 25,
+                        backgroundColor: Colors.purple.shade100,
+                        child: const Icon(Icons.person, color: Colors.purple),
+                      ),
+                      title: Text(
+                        data['name'],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("ID: ${data['studentid']}"),
+                          Text("📞 ${data['phone']}"),
+                        ],
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(Icons.delete, color: Colors.redAccent),
+                        onPressed: () async {
+                          await provider.deletestudent(data['id']);
+                        },
+                      ),
                     ),
                   ),
                 );
@@ -132,7 +143,6 @@ class _TeachersState extends State<Teachers> {
         ),
       ),
 
-      // Floating Action Button
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

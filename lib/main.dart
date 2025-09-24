@@ -1,6 +1,10 @@
 import 'package:attendance_app/provider/attendanceprovider.dart';
 import 'package:attendance_app/provider/student.dart';
 import 'package:attendance_app/screens/homescreen.dart';
+import 'package:attendance_app/screens/student/student.dart';
+import 'package:attendance_app/screens/teachers/authentication/login.dart';
+import 'package:attendance_app/screens/teachers/authentication/signup.dart';
+import 'package:attendance_app/screens/teachers/teachers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +31,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
+
+      routes: {
+        '/teacher/login': (context) => Login(),
+        '/teacher/signup': (context) => Signup(),
+        '/teachers': (context) => Teachers(),
+      },
       home: const Homescreen(),
     );
   }

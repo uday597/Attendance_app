@@ -1,4 +1,5 @@
 import 'package:attendance_app/screens/student/attendance.dart';
+import 'package:attendance_app/screens/student/attendance_history.dart';
 import 'package:flutter/material.dart';
 
 class Student extends StatelessWidget {
@@ -56,15 +57,6 @@ class Student extends StatelessWidget {
               child: Image.asset('assets/images/stuu.png', height: 180),
             ),
 
-            // SizedBox(
-            //   width: double.infinity,
-            //   child: _buildGradientButton(
-            //     context,
-            //     label: "Dashboard",
-            //     icon: Icons.dashboard,
-            //     onPressed: () {},
-            //   ),
-            // ),
             const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
@@ -83,13 +75,30 @@ class Student extends StatelessWidget {
                 },
               ),
             ),
+            SizedBox(height: 15),
+            SizedBox(
+              width: double.infinity,
+              child: _buildGradientButton(
+                context,
+                label: "History    ",
+                icon: Icons.calendar_month,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AttendanceHistory(studentid: studentId),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  // Reusable Gradient Button
   Widget _buildGradientButton(
     BuildContext context, {
     required String label,
@@ -122,7 +131,6 @@ class Student extends StatelessWidget {
   }
 }
 
-// Extension method to apply gradient on ElevatedButton
 extension GradientButton on ElevatedButton {
   ElevatedButton applyGradient() {
     return ElevatedButton(

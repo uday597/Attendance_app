@@ -71,7 +71,6 @@ class _StudentLoginState extends State<StudentLogin> {
                       ),
                       const SizedBox(height: 30),
 
-                      // Student ID field
                       TextFormField(
                         controller: _studentidcontroller,
                         decoration: InputDecoration(

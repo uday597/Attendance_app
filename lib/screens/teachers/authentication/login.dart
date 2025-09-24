@@ -1,7 +1,6 @@
 import 'package:attendance_app/database/teachers.dart';
 import 'package:attendance_app/screens/teachers/teachers.dart';
 import 'package:flutter/material.dart';
-import 'signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -177,12 +176,12 @@ class _LoginState extends State<Login> {
                       ),
                       const SizedBox(height: 15),
 
-                      // Sign Up Link
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
+                          Navigator.pushNamedAndRemoveUntil(
                             context,
-                            MaterialPageRoute(builder: (_) => const Signup()),
+                            '/teacher/signup',
+                            (Route<dynamic> route) => false,
                           );
                         },
                         child: const Text(

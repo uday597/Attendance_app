@@ -13,6 +13,11 @@ class Attendanceprovider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateAttendance(String studentId, String status) async {
+    await db.updateAttendance(studentId, status);
+    await loadAttendance(studentId);
+  }
+
   Future<void> markAttendance(String studentId, String status) async {
     await db.markattendence(studentId, status);
     await loadAttendance(studentId);

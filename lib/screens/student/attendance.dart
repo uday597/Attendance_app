@@ -12,16 +12,15 @@ class AttendanceScreen extends StatefulWidget {
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<Attendanceprovider>(
-        context,
-        listen: false,
-      ).loadAttendance(widget.studentid);
-    });
-  }
-
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     Provider.of<Attendanceprovider>(
+  //       context,
+  //       listen: false,
+  //     ).loadAttendance(widget.studentid);
+  //   });
+  // }
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Attendanceprovider>(context);
@@ -43,6 +42,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       ),
 
       body: Container(
+        height: double.infinity,
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: const BoxDecoration(
@@ -52,80 +52,24 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Column(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildAttendanceButton(
-                  label: "Present",
-                  icon: Icons.check,
-                  color: Colors.green,
-                  onPressed: () async {
-                    await provider.markAttendance(widget.studentid, 'Present');
-                  },
-                ),
-                _buildAttendanceButton(
-                  label: "Absent",
-                  icon: Icons.close,
-                  color: Colors.red,
-                  onPressed: () async {
-                    await provider.markAttendance(widget.studentid, 'Absent');
-                  },
-                ),
-              ],
+            _buildAttendanceButton(
+              label: "Present",
+              icon: Icons.check,
+              color: Colors.green,
+              onPressed: () async {
+                await provider.markAttendance(widget.studentid, 'Present');
+              },
             ),
-            const SizedBox(height: 20),
-
-            Expanded(
-              child: provider.attendanceHistory.isEmpty
-                  ? const Center(
-                      child: Text(
-                        'No attendance marked yet',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: provider.attendanceHistory.length,
-                      itemBuilder: (context, index) {
-                        final record = provider.attendanceHistory[index];
-                        return Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          elevation: 5,
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 6,
-                            horizontal: 4,
-                          ),
-                          child: ListTile(
-                            leading: Icon(
-                              record['status'] == 'Present'
-                                  ? Icons.check_circle
-                                  : Icons.cancel,
-                              color: record['status'] == 'Present'
-                                  ? Colors.green
-                                  : Colors.red,
-                              size: 30,
-                            ),
-                            title: Text(
-                              "Date: ${record['date']}",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            subtitle: Text(
-                              "Status: ${record['status']}",
-                              style: TextStyle(
-                                color: record['status'] == 'Present'
-                                    ? Colors.green
-                                    : Colors.red,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+            _buildAttendanceButton(
+              label: "Absent",
+              icon: Icons.close,
+              color: Colors.red,
+              onPressed: () async {
+                await provider.markAttendance(widget.studentid, 'Absent');
+              },
             ),
           ],
         ),
@@ -133,7 +77,6 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  // Reusable Attendance Button
   Widget _buildAttendanceButton({
     required String label,
     required IconData icon,

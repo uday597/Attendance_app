@@ -15,7 +15,7 @@ class StudentProvider with ChangeNotifier {
     int res = await _studentsdb.addstudent(name, studentid, phone);
 
     if (res > 0) {
-      await loadstudent(); // reload list and notify listeners
+      await loadstudent();
     } else if (res == -1) {
       throw Exception("Student ID already exists");
     } else {

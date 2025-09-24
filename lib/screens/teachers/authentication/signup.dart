@@ -221,11 +221,10 @@ class _SignupState extends State<Signup> {
                           const Text("Already have an account? "),
                           GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.pushNamedAndRemoveUntil(
                                 context,
-                                MaterialPageRoute(
-                                  builder: (context) => const Login(),
-                                ),
+                                '/teacher/login',
+                                (Route<dynamic> route) => false,
                               );
                             },
                             child: const Text(
