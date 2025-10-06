@@ -12,15 +12,6 @@ class AttendanceScreen extends StatefulWidget {
 
 class _AttendanceScreenState extends State<AttendanceScreen> {
   @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((_) {
-  //     Provider.of<Attendanceprovider>(
-  //       context,
-  //       listen: false,
-  //     ).loadAttendance(widget.studentid);
-  //   });
-  // }
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<Attendanceprovider>(context);
@@ -68,7 +59,19 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   icon: Icons.check,
                   color: Colors.green,
                   onPressed: () async {
-                    await provider.markAttendance(widget.studentid, 'Present');
+                    await provider.markAttendance(
+                      widget.studentid,
+
+                      'Present',
+                    ); //n
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Attendance marked as Present ✅"),
+                        backgroundColor: Colors.green,
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
                   },
                 ),
                 _buildAttendanceButton(
@@ -76,7 +79,19 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   icon: Icons.close,
                   color: Colors.red,
                   onPressed: () async {
-                    await provider.markAttendance(widget.studentid, 'Absent');
+                    await provider.markAttendance(
+                      widget.studentid,
+
+                      'Absent',
+                    ); //n
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Attendance marked as Absent ❌"),
+                        backgroundColor: Colors.red,
+                        behavior: SnackBarBehavior.floating,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
                   },
                 ),
               ],

@@ -18,7 +18,7 @@ class _AttendanceHistoryState extends State<AttendanceHistory> {
       Provider.of<Attendanceprovider>(
         context,
         listen: false,
-      ).loadAttendance(widget.studentid);
+      ).loadAttendance(widget.studentid); //n
     });
   }
 

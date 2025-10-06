@@ -34,7 +34,7 @@ class DBhelper {
     await db.execute(
       '''create table students(id integer primary key autoincrement,
     name text not null,
-    studentid text unique not null , phone text not null ) ''',
+    studentid text unique not null ,father text, phone text not null,fees real default 0 ) ''',
     );
     await db.execute(
       ''' create table attendance(id integer primary key autoincrement,studentid text not null,date text not null ,status text not null,unique(studentid, date))''',

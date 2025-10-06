@@ -8,6 +8,7 @@ class AttendanceDb {
   static const studentIdcolumn = 'studentid';
   static const datecolumn = 'date';
   static const statuscolumn = 'status';
+
   Future<int> markattendence(String studentid, String status) async {
     final db = await DBhelper.instanse.database;
     final today = DateTime.now();
@@ -32,7 +33,7 @@ class AttendanceDb {
       int update = await db!.update(
         tablename,
         {statuscolumn: status},
-        where: '$studentIdcolumn=? AND $datecolumn=?',
+        where: '$studentIdcolumn=? AND $datecolumn=? ',
         whereArgs: [studentid, datestring],
       );
       if (update == 0) {

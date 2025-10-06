@@ -11,8 +11,13 @@ class StudentProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> addstudents(String name, String phone, String studentid) async {
-    int res = await _studentsdb.addstudent(name, studentid, phone);
+  Future<void> addstudents(
+    String name,
+    String phone,
+    String studentid,
+    String father,
+  ) async {
+    int res = await _studentsdb.addstudent(name, studentid, phone, father);
 
     if (res > 0) {
       await loadstudent();
@@ -23,10 +28,47 @@ class StudentProvider with ChangeNotifier {
     }
   }
 
+  Future<void> updatedata(
+    int id,
+    String name,
+    String phone,
+    String studentid,
+    String father,
+  ) async {
+    int res = await _studentsdb.updatestudent(
+      id,
+      name,
+      studentid,
+      phone,
+      father,
+    );
+
+    if (res > 0) {
+      await loadstudent();
+    } else if (res == -1) {
+      throw Exception("Student ID already exists");
+    } else {
+      throw Exception("Failed to update student");
+    }
+  }
+
   Future<void> deletestudent(int id) async {
     final db = await DBhelper.instanse.database;
     await db!.delete(Studentsdb.tablename, where: 'id =?', whereArgs: [id]);
     await loadstudent();
     notifyListeners();
+  }
+
+  Future<Map<String, dynamic>?> getStudentDetails(int id) async {
+    return await _studentsdb.getStudentById(id);
+  }
+
+  Future<void> updateFees(int id, double fees) async {
+    int res = await _studentsdb.updatefees(id, fees);
+    if (res > 0) {
+      await loadstudent();
+    } else {
+      throw Exception("Failed to update fees");
+    }
   }
 }
