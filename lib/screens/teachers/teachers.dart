@@ -91,6 +91,7 @@ class _TeachersState extends State<Teachers> {
         _studentIdController.text,
         _fathercontroller.text,
       );
+      _fathercontroller.clear();
       _nameController.clear();
       _phoneController.clear();
       _studentIdController.clear();

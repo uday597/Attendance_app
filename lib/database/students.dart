@@ -8,14 +8,17 @@ class Studentsdb {
   static const fathercolumn = 'father';
   static const phonecol = 'phone';
 
-  Future<bool> login(String studentid) async {
+  Future<Map<String, dynamic>?> login(String studentid) async {
     final db = await DBhelper.instanse.database;
     final loginresult = await db!.query(
       tablename,
       where: '$studentIdcolumn=?',
       whereArgs: [studentid.trim()],
     );
-    return loginresult.isNotEmpty;
+    if (loginresult.isNotEmpty) {
+      return loginresult.first;
+    }
+    return null;
   }
 
   Future<int> updatestudent(

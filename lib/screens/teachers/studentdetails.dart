@@ -13,6 +13,7 @@ class Studentdetails extends StatefulWidget {
 
 class _StudentdetailsState extends State<Studentdetails> {
   TextEditingController _feescontroller = TextEditingController();
+  String selected = 'info';
   void initState() {
     super.initState();
     _feescontroller.text = widget.studentData['fees'].toString();
@@ -48,159 +49,267 @@ class _StudentdetailsState extends State<Studentdetails> {
           child: Column(
             spacing: 20,
             children: [
-              // 🟩 Student Details Section
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 10,
-                    children: [
-                      Text(
-                        "👨‍🎓 Name: ${widget.studentData['name']}",
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      Text(
-                        "🆔 Student ID: ${widget.studentData['studentid']}",
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        "📞 Phone: ${widget.studentData['phone']}",
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      Text(
-                        "👨‍👦 Father: ${widget.studentData['father'] ?? "N/A"}",
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => selected = 'info');
+                    },
+                    child: reusecontainer(
+                      text: 'Student Info',
+                      color: Colors.pink,
+                      isselected: selected == 'info',
+                    ),
                   ),
-                ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => selected = 'fees');
+                    },
+                    child: reusecontainer(
+                      text: 'Fees Details',
+                      color: Colors.purple,
+                      isselected: selected == 'fees',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => selected = 'attendance');
+                    },
+                    child: reusecontainer(
+                      text: '    Update\n attendance',
+                      color: Colors.green,
+                      isselected: selected == 'attendance',
+                    ),
+                  ),
+                ],
+                spacing: 10,
               ),
 
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    spacing: 12,
-                    children: [
-                      const Text(
-                        "💰 Fees Details",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      TextField(
-                        controller: _feescontroller,
-                        keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
-                          labelText: "Enter Fees Amount",
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.purple,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => selected = 'info');
+                    },
+                    child: reusecontainer(
+                      text: 'Student Info',
+                      color: Colors.blue,
+                      isselected: selected == 'info',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => selected = 'fees');
+                    },
+                    child: reusecontainer(
+                      text: 'Fees Details',
+                      color: Colors.black,
+                      isselected: selected == 'fees',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => selected = 'attendance');
+                    },
+                    child: reusecontainer(
+                      text: '    Update\n attendance',
+                      color: Colors.deepOrange,
+                      isselected: selected == 'attendance',
+                    ),
+                  ),
+                ],
+                spacing: 10,
+              ),
+              SizedBox(height: 20),
+              if (selected == 'info') ...[
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 10,
+                      children: [
+                        Center(
+                          child: Text(
+                            'Student Details',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        onPressed: () async {
-                          try {
-                            await studentProvider.updateFees(
-                              widget.studentData['id'],
-                              double.tryParse(_feescontroller.text) ?? 0,
+                        Text(
+                          "👨‍🎓 Name: ${widget.studentData['name']}",
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        Text(
+                          "🆔 Student ID: ${widget.studentData['studentid']}",
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          "📞 Phone: ${widget.studentData['phone']}",
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          "👨‍👦 Father: ${widget.studentData['father'] ?? "N/A"}",
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ] else if (selected == 'fees') ...[
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 12,
+                      children: [
+                        const Text(
+                          "💰 Fees Details",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        TextField(
+                          controller: _feescontroller,
+                          keyboardType: TextInputType.number,
+                          decoration: const InputDecoration(
+                            labelText: "Enter Fees Amount",
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.purple,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () async {
+                            try {
+                              await studentProvider.updateFees(
+                                widget.studentData['id'],
+                                double.tryParse(_feescontroller.text) ?? 0,
+                              );
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text("Fees updated successfully!"),
+                                ),
+                              );
+                            } catch (e) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Error: $e")),
+                              );
+                            }
+                          },
+                          child: const Text("Update Fees"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ] else if (selected == 'attendance') ...[
+                Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      spacing: 12,
+                      children: [
+                        const Text(
+                          "📅 Attendance",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        ElevatedButton.icon(
+                          icon: const Icon(
+                            Icons.check_circle,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            "Present",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                          onPressed: () async {
+                            await attendanceProvider.updateAttendance(
+                              widget.studentData['studentid'],
+                              'Present',
                             );
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                content: Text("Fees updated successfully!"),
+                                content: Text("Attendance marked: Present"),
                               ),
                             );
-                          } catch (e) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error: $e")),
+                          },
+                        ),
+                        ElevatedButton.icon(
+                          icon: const Icon(Icons.cancel, color: Colors.white),
+                          label: const Text(
+                            "Absent",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                          ),
+                          onPressed: () async {
+                            await attendanceProvider.updateAttendance(
+                              widget.studentData['studentid'],
+                              'Absent',
                             );
-                          }
-                        },
-                        child: const Text("Update Fees"),
-                      ),
-                    ],
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text("Attendance marked: Absent"),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                elevation: 4,
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    spacing: 12,
-                    children: [
-                      const Text(
-                        "📅 Attendance",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                      ElevatedButton.icon(
-                        icon: const Icon(
-                          Icons.check_circle,
-                          color: Colors.white,
-                        ),
-                        label: const Text("Present"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                        ),
-                        onPressed: () async {
-                          await attendanceProvider.updateAttendance(
-                            widget.studentData['studentid'],
-                            'Present',
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Attendance marked: Present"),
-                            ),
-                          );
-                        },
-                      ),
-                      ElevatedButton.icon(
-                        icon: const Icon(Icons.cancel, color: Colors.white),
-                        label: const Text("Absent"),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                        ),
-                        onPressed: () async {
-                          await attendanceProvider.updateAttendance(
-                            widget.studentData['studentid'],
-                            'Absent',
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Attendance marked: Absent"),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              ],
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget reusecontainer({
+    required String text,
+    required Color color,
+    required bool isselected,
+  }) {
+    return Container(
+      height: 100,
+      width: 100,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+      child: Center(
+        child: Text(
+          text,
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
     );

@@ -16,7 +16,7 @@ class Teachersdb {
         emailcolumn: email.trim(),
       });
     } catch (e) {
-      print('signup Failed $e');
+      print('Signup Failed $e');
       if (e.toString().contains("UNIQUE constraint failed")) {
         return -1;
       }

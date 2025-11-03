@@ -59,11 +59,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                   icon: Icons.check,
                   color: Colors.green,
                   onPressed: () async {
-                    await provider.markAttendance(
-                      widget.studentid,
-
-                      'Present',
-                    ); //n
+                    await provider.markAttendance(widget.studentid, 'Present');
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text("Attendance marked as Present ✅"),
@@ -77,11 +73,10 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
                 _buildAttendanceButton(
                   label: "Absent",
                   icon: Icons.close,
-                  color: Colors.red,
+                  color: Colors.black,
                   onPressed: () async {
                     await provider.markAttendance(
                       widget.studentid,
-
                       'Absent',
                     ); //n
                     ScaffoldMessenger.of(context).showSnackBar(

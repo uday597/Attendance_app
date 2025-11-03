@@ -17,27 +17,8 @@ class _StudentLoginState extends State<StudentLogin> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Gradient AppBar
-      appBar: AppBar(
-        title: const Text(
-          'Student Login',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        foregroundColor: Colors.white,
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF6A11CB), Color(0xFF2575FC)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-        ),
-      ),
-
-      // Gradient background
       body: Container(
+        height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -62,13 +43,15 @@ class _StudentLoginState extends State<StudentLogin> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Text(
-                        "Welcome Student 👨‍🎓",
+                        "Welcome Student ✨",
                         style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF2575FC),
                         ),
                       ),
+                      Image.asset('assets/images/stulogo.png', width: 200),
+
                       const SizedBox(height: 30),
 
                       TextFormField(
@@ -89,7 +72,6 @@ class _StudentLoginState extends State<StudentLogin> {
                       ),
                       const SizedBox(height: 20),
 
-                      // Login button
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
@@ -97,13 +79,15 @@ class _StudentLoginState extends State<StudentLogin> {
                             if (_formkey.currentState!.validate()) {
                               String studentid = _studentidcontroller.text
                                   .trim();
-                              bool loggedin = await students.login(studentid);
-                              if (loggedin) {
+                              final studentData = await students.login(
+                                studentid,
+                              );
+                              if (studentData != null) {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) =>
-                                        Student(studentId: studentid),
+                                        Student(studentData: studentData),
                                   ),
                                 );
                               } else {
